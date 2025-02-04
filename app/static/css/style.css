@@ -1,11 +1,70 @@
+/* Styles généraux */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
     background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-h1 {
-    color: #333;
+/* Bandeau supérieur */
+header {
+    background-color: #007b80;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 24px;
 }
 
+/* Conteneur principal */
+.container {
+    display: flex;
+    flex: 1;
+}
+
+/* Menu latéral */
+.sidebar {
+    width: 250px;
+    background-color: #368e9c;
+    padding-top: 20px;
+    min-height: 100vh;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #24707d;
+}
+
+/* Contenu principal */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Pied de page */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    width: 100%;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tableau de bords - Chambres froides{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Bandeau supérieur -->
+    <header>
+        <h1>Tableau de bord - Chambres froides</h1>
+    </header>
+
+    <div class="container">
+        <!-- Menu latéral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Chambres froides</a></li>
+                <li><a href="{{ url_for('alerts') }}">Alertes</a></li>
+                <li><a href="#">Matières</a></li>
+                <li><a href="#">Profils</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenu de chaque page -->
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+        <p>&copy; 2025 Chambre froide dashboard</p>
+    </footer>
+
+</body>
+</html>

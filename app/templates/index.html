@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon App Flask</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <h1>Bienvenue sur mon app Flask !</h1>
-    <p>Ceci est une application Flask bien structurée.</p>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - Chambre froide{% endblock %}
+
+{% block content %}
+    <h1>Ici afficher la listes des chambres froides disponible</h1>
+    <p>Après un clique consultations des paramètre et température de la chambre</p>
+{% endblock %}

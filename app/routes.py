@@ -5,6 +5,6 @@ def init_routes(app):
     def index():
         return render_template('index.html')
 
-    @app.route('/about')
-    def about():
-        return "<h1>À propos de cette application</h1>"
+    @app.route('/alerts')
+    def alerts():
+        return render_template('alerts.html')
