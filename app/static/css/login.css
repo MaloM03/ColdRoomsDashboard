@@ -1,0 +1,55 @@
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column; /* Aligne les éléments verticalement */
+    align-items: center; /* Centre horizontalement */
+    gap: 15px; /* Espace entre les éléments */
+}
+
+.login-center {
+    display: flex;
+    justify-content: center;  /* Centre horizontalement */
+    align-items: center;      /* Centre verticalement */
+    height: calc(100vh - 100px); /* 100vh - hauteur du header et footer */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;  /* Aligne les éléments du formulaire verticalement */
+    justify-content: center; /* Centre le contenu du formulaire */
+    align-items: center;     /* Centre le contenu du formulaire horizontalement */
+    width: 100%;  /* Le formulaire prend toute la largeur disponible du container */
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+}
+
+button {
+    width: 50%;
+    padding: 10px;
+    background-color: #1f1d3d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #363269;
+}
