@@ -11,8 +11,8 @@ body {
 
 /* Bandeau supérieur */
 header {
-    background-color: #007b80;
-    color: white;
+    background-color: #80003c;
+    color: rgb(36, 25, 25);
     text-align: center;
     padding: 15px;
     font-size: 18px;
@@ -27,7 +27,7 @@ header {
 /* Menu latéral */
 .sidebar {
     width: 250px;
-    background-color: #368e9c;
+    background-color: #83206a;
     padding-top: 20px;
     min-height: 100vh;
 }
@@ -46,11 +46,11 @@ header {
     text-decoration: none;
     color: white;
     display: block;
-    transition: background 0.3s;
+    transition: background 45s;
 }
 
 .sidebar ul li a:hover {
-    background-color: #24707d;
+    background-color: #0a0a0a;
 }
 
 /* Contenu principal */

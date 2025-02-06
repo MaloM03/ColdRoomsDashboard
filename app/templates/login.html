@@ -4,35 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-[#f5f6f7] flex flex-col min-h-screen">
+
     <!-- Bandeau supérieur -->
-    <header>
-        <h1>Tableau de bord - Chambres froides</h1>
+    <header class="bg-[#017b80] text-white text-center py-4">
+        <h1 class="text-2xl font-bold">Tableau de bord - Chambres froides</h1>
     </header>
 
-    <div class="login-center">
-        <div class="login-container">
-            <h2>Connexion</h2>
-            <h2>BITEEEEEEEE</h2>
-            <h2>CA VA TE BRANLER</h2>
-            <form action="submit_form" method="post">
-                <label for="username">Nom du branleur</label>
-                <input type="text" id="username" name="username" required>
+    <!-- Conteneur du formulaire -->
+    <div class="flex flex-1 items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Connexion</h2>
+            
+            <form action="submit_form" method="post" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-gray-600 font-medium">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" required
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-                <label for="password">Mot de passe de con</label>
-                <input type="password" id="password" name="password" required>
+                <div>
+                    <label for="password" class="block text-gray-600 font-medium">Mot de passe</label>
+                    <input type="password" id="password" name="password" required
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-                <button type="submit">Se branler</button>
+                <button type="submit"
+                    class="w-full bg-[#017b80] text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                    Se connecter
+                </button>
             </form>
         </div>
     </div>
 
     <!-- Pied de page -->
-    <footer>
-        <p>&copy; 2025 branlette Chambre froide dashboard</p>
+    <footer class="bg-gray-800 text-white text-center py-3 mt-auto">
+        <p>&copy; 2025 Chambre froide dashboard</p>
     </footer>
 
 </body>

@@ -3,37 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Tableau de bords - Chambres froides{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}Tableau de bord - Chambres froides{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
     <!-- Bandeau supérieur -->
-    <header>
-        <h1>Tableau de bord - Chambres froides</h1>
+    <header class="bg-[#017b80] text-white p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Tableau de bord - Chambres froides</h1>
+        
+        <!-- Menu burger avec <details> -->
+        <details class="md:hidden">
+            <summary class="text-white text-2xl cursor-pointer">☰</summary>
+            <nav class="absolute top-16 left-0 w-full bg-gray-800 text-white p-4 space-y-2 shadow-md">
+                <ul class="space-y-2">
+                    <li><a href="{{ url_for('index') }}" class="block p-2 hover:bg-gray-700">Chambres froides</a></li>
+                    <li><a href="{{ url_for('alerts') }}" class="block p-2 hover:bg-gray-700">Alertes</a></li>
+                    <li><a href="#" class="block p-2 hover:bg-gray-700">Paramètres</a></li>
+                    <li><a href="#" class="block p-2 hover:bg-gray-700">Profil</a></li>
+                    <li><a href="#" class="block p-2 hover:bg-red-600">Déconnexion</a></li>
+                </ul>
+            </nav>
+        </details>
     </header>
 
-    <div class="container">
-        <!-- Menu latéral -->
-        <nav class="sidebar">
-            <ul>
-                <li><a href="{{ url_for('index') }}">Chambres froides</a></li>
-                <li><a href="{{ url_for('alerts') }}">Alertes de con</a></li>
-                <li><a href="#">foutres</a></li>
-                <li><a href="#">queues</a></li>
-                <li><a href="#">Déconnexion</a></li>
+    <div class="flex flex-1">
+        <!-- Menu latéral (Toujours visible sur desktop) -->
+        <nav class="hidden md:block bg-[#017b80] text-white w-64 p-4 space-y-4">
+            <ul class="space-y-2">
+                <li><a href="{{ url_for('index') }}" class="block p-2 hover:bg-gray-700">Chambres froides</a></li>
+                <li><a href="{{ url_for('alerts') }}" class="block p-2 hover:bg-gray-700">Alertes</a></li>
+                <li><a href="#" class="block p-2 hover:bg-gray-700">Matières</a></li>
+                <li><a href="#" class="block p-2 hover:bg-gray-700">Profil</a></li>
+                <li><a href="#" class="block p-2 hover:bg-red-600">Déconnexion</a></li>
             </ul>
         </nav>
 
-        <!-- Contenu de chaque page -->
-        <main class="content">
+        <!-- Contenu principal -->
+        <main class="flex-1 p-6">
             {% block content %}{% endblock %}
         </main>
     </div>
 
     <!-- Pied de page -->
-    <footer>
-        <p>&copy; 2026 Chambre froide dashboard</p>
+    <footer class="bg-[#1f1d3d] text-white text-center p-3 mt-auto">
+        &copy; 2025 Chambre froide dashboard
     </footer>
 
 </body>
