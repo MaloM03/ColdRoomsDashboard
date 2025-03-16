@@ -3,5 +3,48 @@
 {% block title %}Tableau de bord - Chambre froide{% endblock %}
 
 {% block content %}
-    <h1>Ici la listes des alertes rangées par ordre chronologique / état</h1>
+<div class="container mx-auto p-6">
+
+    <h2 class="text-2xl font-bold mb-4">Liste des Alertes</h2>
+
+    <!-- Formulaire pour le tri -->
+    <form method="GET" action="{{ url_for('alerts.alerts') }}" class="flex space-x-4 mb-4">
+        <!-- Sélection du champ de tri -->
+        <select name="sort_by" class="px-4 py-2 border rounded" onchange="this.form.submit()">
+            <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Trier par date de création</option>
+            <option value="updated_at" {% if sort_by == 'updated_at' %}selected{% endif %}>Trier par date de mise à jour</option>
+        </select>
+
+        <!-- Sélection de l'ordre de tri -->
+        <select name="order" class="px-4 py-2 border rounded" onchange="this.form.submit()">
+            <option value="asc" {% if order == 'asc' %}selected{% endif %}>Croissant ⬆️</option>
+            <option value="desc" {% if order == 'desc' %}selected{% endif %}>Décroissant ⬇️</option>
+        </select>
+    </form>
+
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-200 shadow-lg">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Nom</th>
+                    <th class="border border-gray-300 px-4 py-2">Commentaire</th>
+                    <th class="border border-gray-300 px-4 py-2">Etat</th>
+                    <th class="border border-gray-300 px-4 py-2">Date alerte</th>
+                    <th class="border border-gray-300 px-4 py-2">Dernière mis à jour</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alerts %}
+                <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-300 px-4 py-2">{{ alert.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ alert.comment }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ alert.states }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ alert.created_at }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ alert.updated_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

@@ -6,7 +6,7 @@
     <title>Connexion</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f5f6f7] flex flex-col min-h-screen">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
     <!-- Bandeau supérieur -->
     <header class="bg-[#017b80] text-white text-center py-4">
@@ -17,22 +17,35 @@
     <div class="flex flex-1 items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <h2 class="text-2xl font-bold text-gray-700 text-center mb-6">Connexion</h2>
-            
-            <form action="submit_form" method="post" class="space-y-4">
+
+            <!-- Gestion des messages Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mb-4">
+                        {% for category, message in messages %}
+                            <div class="p-2 text-white rounded {{ 'bg-red-500' if category == 'danger' else 'bg-green-500' }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="post" class="space-y-4">
                 <div>
                     <label for="username" class="block text-gray-600 font-medium">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" required
-                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#017b80]">
                 </div>
 
                 <div>
                     <label for="password" class="block text-gray-600 font-medium">Mot de passe</label>
                     <input type="password" id="password" name="password" required
-                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#017b80]">
                 </div>
 
                 <button type="submit"
-                    class="w-full bg-[#017b80] text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                    class="w-full bg-[#017b80] text-white py-2 rounded-lg hover:bg-[#015a5e] transition">
                     Se connecter
                 </button>
             </form>

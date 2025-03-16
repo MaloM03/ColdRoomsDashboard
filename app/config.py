@@ -1,4 +1,13 @@
-from peewee import MySQLDatabase
+from dotenv import load_dotenv
 import os
 
-DATABASE = PostgresqlDatabase("nom_db", user="user", password="motdepasse", host="localhost", port=5432)
+load_dotenv()
+
+class Config:
+    #SECRET_KEY = os.getenv("SECRET_KEY", "super_secret_key")
+    SECRET_KEY = "votre_cle_secrete_longue_et_random"
+    DB_NAME = os.getenv("DB_NAME", "coldroom_db")
+    DB_USER = os.getenv("DB_USER", "root")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "password")
+    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_PORT = int(os.getenv("DB_PORT", 3306))

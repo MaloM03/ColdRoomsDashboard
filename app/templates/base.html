@@ -5,37 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Tableau de bord - Chambres froides{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        }
+    </script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
     <!-- Bandeau supérieur -->
     <header class="bg-[#017b80] text-white p-4 flex justify-between items-center">
         
-        <!-- Menu burger avec <details> -->
-        <details class="md:hidden">
-            <summary class="text-white text-2xl cursor-pointer">☰</summary>
-            <nav class="absolute top-16 left-0 w-full bg-gray-800 text-white p-4 space-y-2 shadow-md">
-                <ul class="space-y-2">
-                    <li><a href="{{ url_for('index') }}" class="block p-2 hover:bg-gray-700">Chambres froides</a></li>
-                    <li><a href="{{ url_for('alerts') }}" class="block p-2 hover:bg-gray-700">Alertes</a></li>
-                    <li><a href="#" class="block p-2 hover:bg-gray-700">Paramètres</a></li>
-                    <li><a href="#" class="block p-2 hover:bg-gray-700">Profil</a></li>
-                    <li><a href="#" class="block p-2 hover:bg-red-600">Déconnexion</a></li>
-                </ul>
-            </nav>
-        </details>
+        <!-- Menu burger avec JavaScript -->
+        <button class="md:hidden text-2xl" onclick="toggleMenu()">☰</button>
+
         <h1 class="text-2xl font-bold">Tableau de bord - Chambres froides</h1>
     </header>
 
+    <!-- Menu mobile -->
+    <nav id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-gray-800 text-white p-4 space-y-2 shadow-md md:hidden">
+        <ul class="space-y-2">
+            <li><a href="{{ url_for('dashboard.dashboard') }}" class="block p-2 hover:bg-gray-700">Chambres froides</a></li>
+            <li><a href="{{ url_for('alerts.alerts') }}" class="block p-2 hover:bg-gray-700">Alertes</a></li>
+            <li><a href="#" class="block p-2 hover:bg-gray-700">Paramètres</a></li>
+            <li><a href="#" class="block p-2 hover:bg-gray-700">Profil</a></li>
+            <li><a href="{{ url_for('dashboard.dashboard') }}" class="block p-2 hover:bg-red-600">Déconnexion</a></li>
+        </ul>
+    </nav>
+
     <div class="flex flex-1">
-        <!-- Menu latéral (Toujours visible sur desktop) -->
+        <!-- Menu latéral (Desktop) -->
         <nav class="hidden md:block bg-[#017b80] text-white w-64 p-4 space-y-4">
             <ul class="space-y-2">
-                <li><a href="{{ url_for('index') }}" class="block p-2 hover:bg-gray-700">Chambres froides</a></li>
-                <li><a href="{{ url_for('alerts') }}" class="block p-2 hover:bg-gray-700">Alertes</a></li>
+                <li><a href="{{ url_for('dashboard.dashboard') }}" class="block p-2 hover:bg-gray-700">Chambres froides</a></li>
+                <li><a href="{{ url_for('alerts.alerts') }}" class="block p-2 hover:bg-gray-700">Alertes</a></li>
                 <li><a href="#" class="block p-2 hover:bg-gray-700">Matières</a></li>
                 <li><a href="#" class="block p-2 hover:bg-gray-700">Profil</a></li>
-                <li><a href="#" class="block p-2 hover:bg-red-600">Déconnexion</a></li>
+                <li><a href="{{ url_for('dashboard.dashboard') }}" class="block p-2 hover:bg-red-600">Déconnexion</a></li>
             </ul>
         </nav>
 
