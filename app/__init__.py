@@ -5,6 +5,7 @@ from app.database import initialize_db
 from app.routes.auth import auth_bp
 from app.routes.dashboard import dashboard_bp
 from app.routes.alerts import alerts_bp
+from app.routes.materials import materials_bp
 
 from app.models import User
 
@@ -43,5 +44,6 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(alerts_bp)
+    app.register_blueprint(materials_bp)
 
     return app

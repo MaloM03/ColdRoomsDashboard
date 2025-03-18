@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - Ajout Matière {% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('materials.materials_create') }}" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg">
+    <h2 class="text-xl font-semibold mb-4">Créer une Matière</h2>
+
+    <div class="mb-4">
+        <label for="name" class="block text-gray-700 font-medium">Nom de la Matière</label>
+        <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required 
+            class="border p-2 w-full rounded focus:ring focus:ring-blue-300"
+            placeholder="Entrez le nom..."
+        >
+    </div>
+
+    <div class="mb-4">
+        <label for="reference" class="block text-gray-700 font-medium">Référence</label>
+        <input 
+            type="text" 
+            id="reference" 
+            name="reference" 
+            required 
+            class="border p-2 w-full rounded focus:ring focus:ring-blue-300"
+            placeholder="Entrez la référence..."
+        >
+    </div>
+
+    <button type="submit" class="bg-[#017b80] text-white px-4 py-2 rounded hover:bg-[#015a5e] w-full">
+        Ajouter la Matière
+    </button>
+    <!-- Gestion des messages Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="mb-4">
+            {% for category, message in messages %}
+                <div class="p-2 text-white rounded {{ 'bg-red-500' if category == 'danger' else 'bg-green-500' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+</form>
+
+{% endblock %}

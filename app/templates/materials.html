@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - Matière {% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Liste des matières</h1>
+
+    <!-- Barre de recherche -->
+    <div class="mb-4 flex items-center gap-2">
+        <form method="GET" action="{{ url_for('materials.materials') }}" class="flex items-center gap-2">
+            <input 
+                type="text" 
+                name="search" 
+                placeholder="nom ou référence..." 
+                value="{{ request.args.get('search', '') }}" 
+                class="border p-2 rounded w-full"
+            >
+            <button type="submit" class="bg-[#017b80] text-white px-4 py-2 rounded hover:bg-[#015a5e]">
+                Rechercher
+            </button>
+        </form>
+        
+        <a href="{{ url_for('materials.materials_create') }}" class="bg-[#017b80] text-white px-4 py-2 rounded hover:bg-[#015a5e]">
+            +
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-200 shadow-lg">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Nom</th>
+                    <th class="border border-gray-300 px-4 py-2">Référence</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materials %}
+                <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-300 px-4 py-2">{{ material.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ material.reference }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
