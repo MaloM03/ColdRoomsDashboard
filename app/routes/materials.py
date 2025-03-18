@@ -41,3 +41,35 @@ def materials_create():
             return redirect(url_for("materials.materials"))
 
     return render_template("materials_create.html")
+
+@materials_bp.route("/materials_edit/<int:id>", methods=["GET", "POST"])
+def materials_edit(id):
+    material = Material.get_or_none(Material.id_materials == id)
+    if not material:
+        flash("Matériau introuvable.", "danger")
+        return redirect(url_for("materials.materials"))
+
+    if request.method == "POST":
+        if "edit" in request.form: 
+            name = request.form.get("name", "").strip()
+            reference = request.form.get("reference", "").strip()
+
+            # Vérifie si la référence existe déjà (hors celle en cours d'édition)
+            existing_material = Material.get_or_none((Material.reference == reference) & (Material.id_materials != id))
+            if existing_material:
+                flash("Cette référence existe déjà !", "danger")
+            elif len(name) > 25:
+                flash("Le nom ne peut pas dépasser 25 caractères.", "danger")
+            elif len(reference) > 25:
+                flash("La référence ne peut pas dépasser 25 caractères.", "danger")
+            else:
+                material.name = name
+                material.reference = reference
+                material.save()
+                return redirect(url_for("materials.materials", id=id))
+
+        if "delete" in request.form:
+            material.delete_instance()
+            return redirect(url_for("materials.materials"))
+
+    return render_template("materials_edit.html", material=material)

@@ -32,6 +32,7 @@
                 <tr class="bg-gray-100">
                     <th class="border border-gray-300 px-4 py-2">Nom</th>
                     <th class="border border-gray-300 px-4 py-2">Référence</th>
+                    <th class="border border-gray-300 px-4 py-2">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,12 @@
                 <tr class="hover:bg-gray-50">
                     <td class="border border-gray-300 px-4 py-2">{{ material.name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ material.reference }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <a href="{{ url_for('materials.materials_edit', id=material.id_materials) }}"
+                        class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">
+                        Éditer
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

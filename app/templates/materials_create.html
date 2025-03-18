@@ -30,9 +30,14 @@
         >
     </div>
 
-    <button type="submit" class="bg-[#017b80] text-white px-4 py-2 rounded hover:bg-[#015a5e] w-full">
-        Ajouter la Matière
-    </button>
+    <div class="w-full flex flex-col space-y-4">
+        <button type="submit" class="bg-[#017b80] text-white px-4 py-2 rounded hover:bg-[#015a5e] w-full">
+            Ajouter matière
+        </button>
+        <a href="{{ url_for('materials.materials') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 w-full text-center">
+            Retour
+        </a>
+    </div>
     <!-- Gestion des messages Flash -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

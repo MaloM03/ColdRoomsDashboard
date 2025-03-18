@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - Ajout Matière {% endblock %}
+
+{% block content %}
+    <h2 class="text-xl font-bold mb-4">Modifier la matière</h2>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="p-2 mb-4 rounded text-white 
+                    {% if category == 'success' %} bg-green-500 {% elif category == 'danger' %} bg-red-500 {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('materials.materials_edit', id=material.id_materials) }}" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">Modifier / Supprimer une matière</h2>
+    
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-medium">Nom de la Matière</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                class="border p-2 w-full rounded focus:ring focus:ring-blue-300"
+                value="{{ material.name }}"
+                placeholder="{{ material.name }}"
+            >
+        </div>
+    
+        <div class="mb-4">
+            <label for="reference" class="block text-gray-700 font-medium">Référence</label>
+            <input 
+                type="text" 
+                id="reference" 
+                name="reference" 
+                required 
+                class="border p-2 w-full rounded focus:ring focus:ring-blue-300"
+                value="{{ material.reference }}"
+                placeholder="Entrez la référence..."
+            >
+        </div>
+    
+        <div class="w-full flex flex-col space-y-4">
+            <button type="submit" name="edit" class="bg-[#017b80] text-white px-4 py-2 rounded hover:bg-[#015a5e] w-full">
+                Modifier
+            </button>
+            <button type="submit" name="delete" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full">
+                Supprimer
+            </button>
+            <a href="{{ url_for('materials.materials') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 w-full text-center">
+                Retour
+            </a>
+        </div>
+{% endblock %}
