@@ -1,10 +1,36 @@
 {% extends "base.html" %}
 
+{% block head %}
+{{ super() }}
+<!-- Inclure les librairies JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+<!-- Inclure votre fichier JavaScript (après les bibliothèques) -->
+<script src="{{ url_for('static', filename='js/temperature_chart.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container mx-auto p-6">
     <h1 class="text-2xl font-bold mb-4">Informations chambres froides : {{ coldroom.coldroom_name }}</h1>
     <p>Nombre d'emplacements {{ coldroom.max_places }} | Plage température {{ coldroom.temp_min_limit }}°C - {{ coldroom.temp_max_limit }}°C</p>
-    <h1 class="text-2xl font-bold mb-4">ICI GRAPHIQUE</h1>
+</div>
+
+<!-- Graphique des températures -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Graphique des températures</h5>
+        <!-- Ajout d'une hauteur explicite au canvas -->
+        <canvas id="temperatureChart" style="width:100%; height:400px;"></canvas>
+        
+        <!-- Assurez-vous que le JSON est valide -->
+        <div id="temperature-chart-data" 
+            data-chart-info='{"dates": {{ temp_dates|tojson }}, "values": {{ temp_values|tojson }}, "minLimit": {{ min_limit|tojson }}, "maxLimit": {{ max_limit|tojson }} }' 
+            style="display: none;"></div>
+    </div>
+</div>
+
+<div class="container mx-auto p-6">
+    <!-- Liste des matériels -->
     <h1 class="text-2xl font-bold mb-4">Listes des matières</h1>
     <div class="overflow-x-auto">
         <table class="w-full border-collapse border border-gray-200 shadow-lg">
@@ -13,7 +39,7 @@
                     <th class="border border-gray-300 px-4 py-2">Matière</th>
                     <th class="border border-gray-300 px-4 py-2">Référence</th>
                     <th class="border border-gray-300 px-4 py-2">Emplacement</th>
-                    <th class="border border-gray-300 px-4 py-2">Quantitées</th>
+                    <th class="border border-gray-300 px-4 py-2">Quantitées (Kg)</th>
                     <th class="border border-gray-300 px-4 py-2">Actions</th>
                 </tr>
             </thead>
