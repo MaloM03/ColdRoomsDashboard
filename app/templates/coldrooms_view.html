@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Informations chambres froides : {{ coldroom.coldroom_name }}</h1>
+    <p>Nombre d'emplacements {{ coldroom.max_places }} | Plage température {{ coldroom.temp_min_limit }}°C - {{ coldroom.temp_max_limit }}°C</p>
+    <h1 class="text-2xl font-bold mb-4">ICI GRAPHIQUE</h1>
+    <h1 class="text-2xl font-bold mb-4">Listes des matières</h1>
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-200 shadow-lg">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Matière</th>
+                    <th class="border border-gray-300 px-4 py-2">Référence</th>
+                    <th class="border border-gray-300 px-4 py-2">Emplacement</th>
+                    <th class="border border-gray-300 px-4 py-2">Quantitées</th>
+                    <th class="border border-gray-300 px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for location in locations %}
+                <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-300 px-4 py-2">{{ location.id_materials.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ location.id_materials.reference }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ location.place }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ location.quantity }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <a href="{{ url_for('coldrooms.coldrooms') }}"
+                        class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">
+                        Voir
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

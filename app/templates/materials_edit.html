@@ -3,8 +3,6 @@
 {% block title %}Tableau de bord - Ajout Matière {% endblock %}
 
 {% block content %}
-    <h2 class="text-xl font-bold mb-4">Modifier la matière</h2>
-
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -31,7 +29,7 @@
                 placeholder="{{ material.name }}"
             >
         </div>
-    
+
         <div class="mb-4">
             <label for="reference" class="block text-gray-700 font-medium">Référence</label>
             <input 

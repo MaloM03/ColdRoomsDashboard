@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold mb-4">Liste des Chambres Froides</h1>
 
     <!-- Barre de recherche -->
-    <form method="GET" action="{{ url_for('dashboard.dashboard') }}" class="mb-4">
+    <form method="GET" action="{{ url_for('coldrooms.coldrooms') }}" class="mb-4">
         <input 
             type="text" 
             name="search" 
@@ -24,6 +24,7 @@
                     <th class="border border-gray-300 px-4 py-2">Nombre de place</th>
                     <th class="border border-gray-300 px-4 py-2">Température Max</th>
                     <th class="border border-gray-300 px-4 py-2">Température Min</th>
+                    <th class="border border-gray-300 px-4 py-2">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,12 @@
                     <td class="border border-gray-300 px-4 py-2">{{ coldroom.max_places }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ coldroom.temp_max_limit	 }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ coldroom.temp_min_limit	 }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <a href="{{ url_for('coldrooms.coldrooms_view', id=coldroom.id_coldroom) }}"
+                        class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">
+                        Voir
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

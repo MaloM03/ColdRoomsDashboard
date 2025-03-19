@@ -20,7 +20,7 @@ def login():
             login_user(user)
             print("Après login_user: ", current_user.is_authenticated)  # DEBUG
             print("Utilisateur ID: ", current_user.id_users) 
-            return redirect(url_for("dashboard.dashboard"))
+            return redirect(url_for("coldrooms.coldrooms"))
         else:
             flash("Identifiants incorrects", "danger")
 
