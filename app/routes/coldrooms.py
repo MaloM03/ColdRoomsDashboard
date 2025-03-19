@@ -16,7 +16,7 @@ def coldrooms():
 
     return render_template("coldrooms.html", coldrooms=coldrooms, search_query=search_query)
 
-@coldrooms_bp.route("/coldrooms_view/<int:id>", methods=["GET", "POST"])
+@coldrooms_bp.route("/coldrooms/view/<int:id>", methods=["GET", "POST"])
 def coldrooms_view(id):
     coldroom = ColdRoom.get_or_none(ColdRoom.id_coldroom == id)
     locations = Location.select().where(Location.id_coldroom == coldroom)

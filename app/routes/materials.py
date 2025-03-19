@@ -18,7 +18,7 @@ def materials():
 
 
 
-@materials_bp.route("/material_create", methods=["GET", "POST"])
+@materials_bp.route("/material/create", methods=["GET", "POST"])
 def materials_create():
     if request.method == "POST":
         name = request.form.get("name", "").strip()
@@ -42,7 +42,7 @@ def materials_create():
 
     return render_template("materials_create.html")
 
-@materials_bp.route("/materials_edit/<int:id>", methods=["GET", "POST"])
+@materials_bp.route("/materials/edit/<int:id>", methods=["GET", "POST"])
 def materials_edit(id):
     material = Material.get_or_none(Material.id_materials == id)
     if not material:
