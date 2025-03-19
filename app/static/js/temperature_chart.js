@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 display: true,
                 content: 'Min',
                 color: 'red',
-                position: 'start',
+                position: 'end',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)'
             }
         };
     }
@@ -47,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 display: true,
                 content: 'Max',
                 color: 'red',
-                position: 'start',
+                position: 'end',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)'
             }
         };
     }
@@ -70,13 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         options: {
             responsive: true,
-            animation: false,
             maintainAspectRatio: false,
+            animation: false, // Désactive l'animation
             scales: {
                 y: {
                     title: { display: true, text: 'Température (°C)' },
-                    min: chartData.minLimit !== null ? chartData.minLimit - 5 : undefined,
-                    max: chartData.maxLimit !== null ? chartData.maxLimit + 5 : undefined
+                    suggestedMin: Math.min(...chartData.values, chartData.minLimit) - 5,
+                    suggestedMax: Math.max(...chartData.values, chartData.maxLimit) + 5
                 },
                 x: { title: { display: true, text: 'Date et heure' } }
             },
