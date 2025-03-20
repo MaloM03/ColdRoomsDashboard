@@ -4,74 +4,30 @@
 
 {% block content %}
 <div class="container mx-auto p-6">
-
-    <h2 class="text-2xl font-bold mb-4">Liste des Alertes</h2>
-
-    <div class="flex space-x-4 mb-4">
-        <div class="flex items-center space-x-2">
-            <span class="w-4 h-4 bg-red-100 border border-red-300"></span>
-            <span class="text-sm">Alertes non traitées</span>
-        </div>
-        <div class="flex items-center space-x-2">
-            <span class="w-4 h-4 bg-orange-100 border border-orange-300"></span>
-            <span class="text-sm">Alertes en cours</span>
-        </div>
-        <div class="flex items-center space-x-2">
-            <span class="w-4 h-4 bg-green-100 border border-green-300"></span>
-            <span class="text-sm">Alertes traitées</span>
-        </div>
+    <h2 class="text-2xl font-bold mb-4">Modifier l'alerte n° {{ alert.id_alerts }}</h2>
+    <div class="container mx-auto p-6">
+        <p>Date incident : {{ alert.created_at }} </p>
+        <p>Date dernière mis à jour : {{ alert.updated_at }}</p>
     </div>
 
-    <!-- Formulaire pour le tri -->
-    <form method="GET" action="{{ url_for('alerts.alerts') }}" class="flex space-x-4 mb-4">
-        <!-- Sélection du champ de tri -->
-        <select name="sort_by" class="px-4 py-2 border rounded" onchange="this.form.submit()">
-            <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Trier par date de création</option>
-            <option value="updated_at" {% if sort_by == 'updated_at' %}selected{% endif %}>Trier par date de mise à jour</option>
-        </select>
+    <form method="POST">
+        <div class="mb-4">
+            <label class="block text-gray-700">Commentaire alerte</label>
+            <textarea name="comment" class="w-full p-2 border rounded">{{ alert.comment }}</textarea>
+        </div>
 
-        <!-- Sélection de l'ordre de tri -->
-        <select name="order" class="px-4 py-2 border rounded" onchange="this.form.submit()">
-            <option value="asc" {% if order == 'asc' %}selected{% endif %}>Croissant</option>
-            <option value="desc" {% if order == 'desc' %}selected{% endif %}>Décroissant</option>
-        </select>
-        <!-- Filtrer par état -->
-        <select name="state_filter" class="px-4 py-2 border rounded" onchange="this.form.submit()">
-            <option value="">Toutes les alertes</option>
-            <option value="0" {% if state_filter == '0' %}selected{% endif %}>Alertes non traitées</option>
-            <option value="1" {% if state_filter == '1' %}selected{% endif %}>Alertes en cours</option>
-            <option value="2" {% if state_filter == '2' %}selected{% endif %}>Alertes traitées</option>
-        </select>
+        <div class="mb-4">
+            <label class="block text-gray-700">État</label>
+            <select name="state" class="w-full p-2 border rounded">
+                <option value="0" {% if alert.states == 0 %}selected{% endif %}>Non traitée</option>
+                <option value="1" {% if alert.states == 1 %}selected{% endif %}>En cours</option>
+                <option value="2" {% if alert.states == 2 %}selected{% endif %}>Traitée</option>
+            </select>
+        </div>
+
+        <div class="flex space-x-4">
+            <button type="submit" name="edit" class="bg-blue-500 text-white px-4 py-2 rounded">Enregistrer</button>
+        </div>
     </form>
-
-    <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-200 shadow-lg">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2">Nom</th>
-                    <th class="border border-gray-300 px-4 py-2">Commentaire</th>
-                    <th class="border border-gray-300 px-4 py-2">Date alerte</th>
-                    <th class="border border-gray-300 px-4 py-2">Dernière mis à jour</th>
-                    <th class="border border-gray-300 px-4 py-2">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for alert in alerts %}
-                <tr class="{% if alert.states == 0 %}bg-red-200 hover:bg-red-300{% elif alert.states == 1 %}bg-orange-200 hover:bg-orange-300{% elif alert.states == 2 %}bg-green-200 hover:bg-green-300{% endif %}">
-                    <td class="border border-gray-300 px-4 py-2">{{ alert.name }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ alert.comment }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ alert.created_at }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ alert.updated_at }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-center">
-                        <a href="{{ url_for('alerts.alerts') }}"
-                        class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">
-                        Editer
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 </div>
 {% endblock %}

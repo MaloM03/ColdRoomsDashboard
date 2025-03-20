@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">
+        Gestion du Stock :
+    </h2>
+
+    <!-- Formulaire d'édition des stocks -->
+    <form method="POST" class="overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-200 shadow-lg">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Matériau</th>
+                    <th class="border border-gray-300 px-4 py-2">Quantité</th>
+                    <th class="border border-gray-300 px-4 py-2">Emplacement</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr class="hover:bg-gray-200">
+                    <td class="border border-gray-300 px-4 py-2">{{ stock.id_materials_id }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <input type="number" name="quantity_{{ stock.id_materials_id }}" 
+                               value="{{ stock.quantity }}" 
+                               class="w-20 p-2 border rounded text-center">
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">
+                        <input type="number" name="place_{{ stock.id_materials_id }}" 
+                               value="{{ stock.place }}" 
+                               class="w-20 p-2 border rounded text-center">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Bouton de soumission -->
+        <div class="text-right mt-4">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Enregistrer les modifications
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

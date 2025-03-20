@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required
 from app.models import Alert
 
@@ -30,14 +30,14 @@ def alerts():
 
 @alerts_bp.route("/alerts/edit/<int:id>", methods=["GET", "POST"])
 def alerts_edit(id):
-    alert = Alert.get_or_none(Alert.id == id)
+    alert = Alert.get_or_none(Alert.id_alerts == id)
     if not alert:
         flash("Alerte introuvable.", "danger")
         return redirect(url_for("alerts.alerts"))
 
     if request.method == "POST":
         if "edit" in request.form:
-            name = request.form.get("name", "").strip()
+            name = "user inconu"
             comment = request.form.get("comment", "").strip()
             state = request.form.get("state", "").strip()
 
@@ -53,12 +53,6 @@ def alerts_edit(id):
                 alert.comment = comment
                 alert.states = int(state)
                 alert.save()
-                flash("Alerte mise à jour avec succès.", "success")
                 return redirect(url_for("alerts.alerts", id=id))
-
-        if "delete" in request.form:
-            alert.delete_instance()
-            flash("Alerte supprimée avec succès.", "success")
-            return redirect(url_for("alerts.alerts"))
 
     return render_template("alerts_edit.html", alert=alert)

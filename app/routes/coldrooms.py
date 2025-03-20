@@ -44,3 +44,33 @@ def coldrooms_view(id):
                           temp_values=temp_values,
                           min_limit=float(coldroom.temp_min_limit) if coldroom.temp_min_limit else None,
                           max_limit=float(coldroom.temp_max_limit) if coldroom.temp_max_limit else None)
+
+@coldrooms_bp.route("/coldrooms/stock/<int:coldroom_id>", methods=["GET", "POST"])
+def coldrooms_stock(coldroom_id):
+    # Vérifier si la chambre froide existe
+    coldroom = Coldroom.get_or_none(Coldroom.id == coldroom_id)
+    if not coldroom:
+        flash("Chambre froide introuvable.", "danger")
+        return redirect(url_for("coldrooms.coldrooms"))
+
+    # Récupérer les matériaux stockés dans cette chambre froide
+    stocks = ColdroomStock.select().where(ColdroomStock.id_coldroom_id == coldroom_id)
+
+    if request.method == "POST":
+        for stock in stocks:
+            # Récupérer les nouvelles valeurs du formulaire
+            quantity = request.form.get(f"quantity_{stock.id_materials_id}", "").strip()
+            place = request.form.get(f"place_{stock.id_materials_id}", "").strip()
+
+            # Mise à jour du stock
+            if quantity.isdigit():
+                stock.quantity = int(quantity)
+            if place.isdigit():
+                stock.place = int(place)
+
+            stock.save()
+
+        flash("Stock mis à jour avec succès.", "success")
+        return redirect(url_for("coldrooms.coldrooms_stock", coldroom_id=coldroom_id))
+
+    return render_template("coldrooms_stock.html", coldroom=coldroom, stocks=stocks)
