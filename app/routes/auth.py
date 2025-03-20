@@ -12,18 +12,15 @@ def login():
         password = request.form.get("password")
         print(f"input username: {username}")
         print(f"input password: {password}")
-
         user = User.get_or_none(User.username == username)
         print(user)
-
         if user and user.check_password(password):
-            login_user(user)
-            print("Après login_user: ", current_user.is_authenticated)  # DEBUG
-            print("Utilisateur ID: ", current_user.id_users) 
+            login_user(user, remember=True)
+            print("Après login_user: ", current_user.is_authenticated) # DEBUG
+            print("Utilisateur ID: ", current_user.id_users)
             return redirect(url_for("coldrooms.coldrooms"))
         else:
             flash("Identifiants incorrects", "danger")
-
     return render_template("login.html")
 
 @auth_bp.route("/logout")
@@ -32,15 +29,3 @@ def logout():
     logout_user()
     flash("Déconnexion réussie.", "success")
     return redirect(url_for("auth.login"))
-
-@auth_bp.route("/check")
-def check():
-    return jsonify({
-        "Connecté": current_user.is_authenticated,
-        "ID utilisateur": current_user.get_id()
-    })
-
-@auth_bp.route("/session_test")
-def session_test():
-    session["test"] = "OK"
-    return "Session test OK"

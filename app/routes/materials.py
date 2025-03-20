@@ -5,6 +5,7 @@ from app.models import Material
 materials_bp = Blueprint("materials", __name__)
 
 @materials_bp.route("/materials", methods=["GET"])
+@login_required
 def materials():
     search_query = request.args.get("search", "").strip()  # Récupère la recherche
 
@@ -19,6 +20,7 @@ def materials():
 
 
 @materials_bp.route("/material/create", methods=["GET", "POST"])
+@login_required
 def materials_create():
     if request.method == "POST":
         name = request.form.get("name", "").strip()
@@ -43,6 +45,7 @@ def materials_create():
     return render_template("materials_create.html")
 
 @materials_bp.route("/materials/edit/<int:id>", methods=["GET", "POST"])
+@login_required
 def materials_edit(id):
     material = Material.get_or_none(Material.id_materials == id)
     if not material:

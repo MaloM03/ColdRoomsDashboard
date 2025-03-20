@@ -25,6 +25,8 @@ def create_app():
     login_manager = LoginManager()
     login_manager.init_app(app)  # Associe login_manager avec l'app Flask
     login_manager.login_view = "auth.login"  # Redirige vers la page login en cas de non-authentification
+    login_manager.login_message = "Veuillez vous connecter pour accéder à cette page."
+    login_manager.login_message_category = "danger"
     
 
     @login_manager.user_loader

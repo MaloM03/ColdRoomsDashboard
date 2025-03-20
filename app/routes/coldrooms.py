@@ -5,7 +5,7 @@ from app.models import ColdRoom, Location, Temperature
 coldrooms_bp = Blueprint("coldrooms", __name__)
 
 @coldrooms_bp.route("/coldrooms", methods=["GET"])
-#@login_required
+@login_required
 def coldrooms():
     search_query = request.args.get("search", "").strip()  # Récupère la recherche
 
@@ -17,6 +17,7 @@ def coldrooms():
     return render_template("coldrooms.html", coldrooms=coldrooms, search_query=search_query)
 
 @coldrooms_bp.route("/coldrooms/view/<int:id>", methods=["GET", "POST"])
+@login_required
 def coldrooms_view(id):
     coldroom = ColdRoom.get_or_none(ColdRoom.id_coldroom == id)
     if not coldroom:
@@ -46,6 +47,7 @@ def coldrooms_view(id):
                           max_limit=float(coldroom.temp_max_limit) if coldroom.temp_max_limit else None)
 
 @coldrooms_bp.route("/coldrooms/stock/<int:coldroom_id>", methods=["GET", "POST"])
+@login_required
 def coldrooms_stock(coldroom_id):
     # Vérifier si la chambre froide existe
     coldroom = Coldroom.get_or_none(Coldroom.id == coldroom_id)

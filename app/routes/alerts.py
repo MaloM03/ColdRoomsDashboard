@@ -5,6 +5,7 @@ from app.models import Alert
 alerts_bp = Blueprint("alerts", __name__)
 
 @alerts_bp.route("/alerts")
+@login_required
 def alerts():
     sort_by = request.args.get("sort_by", "created_at")
     order = request.args.get("order", "desc")
@@ -29,6 +30,7 @@ def alerts():
     return render_template("alerts.html", alerts=query, sort_by=sort_by, order=order, state_filter=state_filter)
 
 @alerts_bp.route("/alerts/edit/<int:id>", methods=["GET", "POST"])
+@login_required
 def alerts_edit(id):
     alert = Alert.get_or_none(Alert.id_alerts == id)
     if not alert:

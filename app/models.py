@@ -22,6 +22,9 @@ class User(UserMixin, BaseModel):
     password_key = CharField(max_length=255, null=False)
     id_roles = ForeignKeyField(Role, backref="users", on_delete="CASCADE")
 
+    def get_id(self):
+        return str(self.id_users) 
+
     class Meta:
         table_name = "users"
 
@@ -41,8 +44,6 @@ class User(UserMixin, BaseModel):
         #return self.password_key
         #return check_password_hash(self.password_key, password)
 
-        def get_id(self):
-            return str(self.id_users) 
 
 class Material(BaseModel):
     id_materials = AutoField()
