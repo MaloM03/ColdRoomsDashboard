@@ -1,7 +1,9 @@
 from peewee import *
 from flask_login import UserMixin
 from app.database import db
-from werkzeug.security import generate_password_hash, check_password_hash
+#from werkzeug.security import generate_password_hash, check_password_hash
+import hashlib
+import os
 
 class BaseModel(Model):
     """Classe de base pour tous les modèles."""
@@ -29,20 +31,36 @@ class User(UserMixin, BaseModel):
         table_name = "users"
 
     def set_password(self, password):
-        """Hacher et stocker le mot de passe."""
-        self.password_key = generate_password_hash(password)
+        """Hacher et stocker le mot de passe avec scrypt."""
+        salt = os.urandom(16)  # Génère un sel aléatoire de 16 octets
+        hash_value = hashlib.scrypt(password.encode(), salt=salt, n=16384, r=8, p=1)
+        
+        self.password_key = f"{salt.hex()}:{hash_value.hex()}"  # Stocke sous forme "salt:hash"
+        print(f"Mot de passe enregistré: {self.password_key}")  # Debugging
+        self.save()
 
     def check_password(self, password):
-        """Vérifier si le mot de passe correspond au hachage enregistré."""
-        print(self.password_key)
-        if self.password_key == password:
-            print("mot de passe correct")
-            return True
-        else:
-            print("mot de passe incorrect")
-            return False
-        #return self.password_key
-        #return check_password_hash(self.password_key, password)
+        """Vérifier si le mot de passe correspond au hash stocké."""
+        try:
+            print(f"Mot de passe stocké: {self.password_key}")  # Debugging
+            if ":" not in self.password_key:
+                print("Format invalide (pas de ':')")
+                return False  # Problème de format
+
+            salt_hex, stored_hash_hex = self.password_key.split(":")  # Séparer sel et hash
+            print(f"Salt hex: {salt_hex}")
+            print(f"Stored hash hex: {stored_hash_hex}")
+
+            salt = bytes.fromhex(salt_hex)
+            stored_hash = bytes.fromhex(stored_hash_hex)
+
+            # Hasher le mot de passe entré avec le même sel
+            computed_hash = hashlib.scrypt(password.encode(), salt=salt, n=16384, r=8, p=1)
+
+            return computed_hash == stored_hash  # Comparaison sécurisée
+        except ValueError as e:
+            print(f"Erreur de format du mot de passe stocké: {e}")
+            return False  # Retourne False en cas d'erreur de format
 
 
 class Material(BaseModel):

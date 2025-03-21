@@ -13,7 +13,9 @@ def login():
         print(f"input username: {username}")
         print(f"input password: {password}")
         user = User.get_or_none(User.username == username)
+        #user.set_password(password) # DEBUG CREER MDP ICI
         print(user)
+        user.check_password(password)
         if user and user.check_password(password):
             login_user(user, remember=True)
             print("Après login_user: ", current_user.is_authenticated) # DEBUG
