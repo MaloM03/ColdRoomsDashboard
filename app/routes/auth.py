@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify, make_response
 from flask_login import login_user, login_required, logout_user
 from app.models import User
 from flask_login import current_user
@@ -28,4 +28,12 @@ def login():
 def logout():
     logout_user()
     flash("Déconnexion réussie.", "success")
-    return redirect(url_for("auth.login"))
+    
+    # Crée une réponse avec des headers empêchant le cache
+    response = make_response(redirect(url_for("auth.login")))
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    
+    return response
+

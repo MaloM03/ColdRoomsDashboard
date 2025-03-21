@@ -14,9 +14,6 @@ def create_app():
 
     # Charger la configuration
     app.config.from_object(Config)
-    print(app.config["SECRET_KEY"])
-
-    app.config["SECRET_KEY"] = "supersecretkey"  # Clé secrète pour les sessions
 
     # Initialiser la base de données
     initialize_db()
@@ -41,6 +38,13 @@ def create_app():
         except ValueError:
             print(" Erreur: user_id n'est pas un entier valide !")
             return None
+
+    @app.after_request
+    def add_header(response):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+        return response
 
     # Enregistrer les blueprints
     app.register_blueprint(auth_bp)
